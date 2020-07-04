@@ -21,10 +21,11 @@
     },
     computed: {
       cartList() {
-        // console.log(this.$store.getters)
+        console.log(this.$store)
         return this.$store.getters.cartList
       },
       cartCount() {
+        console.log(this.$store)
         return this.$store.getters.cartCount
       }
     }
