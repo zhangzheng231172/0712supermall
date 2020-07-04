@@ -46,7 +46,7 @@
 
         //2.每次滚动都会触发scroll事件，并执行相关事件
         this.scroll.on('scroll', (position) => {
-          console.log(position)
+          // console.log(position)
           this.$emit('scroll', position)
         })
       this.scroll.refresh()
@@ -77,7 +77,7 @@
       },
 
       refresh() {
-        console.log('-----')
+        // console.log('-----')
         this.scroll.refresh()
       },
 

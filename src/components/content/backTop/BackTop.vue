@@ -1,15 +1,18 @@
 <template>
-    <div class="back-top" >
+    <div class="back-top" @click="topClick">
       <img src="~assets/img/common/top.png" alt="">
     </div>
 </template>
 <!-- 父子组件简单的调用-->
 <script>
-    export default {
-        name: "BackTop",
-      methods:{
+  export default {
+    name: "BackTop",
+    methods: {
+      topClick: function () {
+        this.$emit('backTop');
       }
     }
+  }
 </script>
 
 <style scoped>

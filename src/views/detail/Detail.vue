@@ -1,6 +1,7 @@
 <template>
   <div id="detail">
     <detail-nav-bar class="detail-nav" @titleClick="titleClick" ref="nav"></detail-nav-bar>
+
     <scroll class="content" ref="scroll" :probeType="3" @scroll="contentScroll">
       <detail-swiper :top-images="topImages"></detail-swiper>
       <detail-base-info :goods="goods" ></detail-base-info>
@@ -10,11 +11,17 @@
       <detail-comment-info ref="comment"    :comment-info="commentInfo"></detail-comment-info>
       <goods-list ref="recommend"  :goods="recommends"></goods-list>
     </scroll>
-    <detaild-bottom-bar></detaild-bottom-bar>
+
+    <back-top @backTop="backTop" class="back-top" v-show="showBackTop">
+      <img src="~assets/img/common/top.png" alt="">
+    </back-top>
+
+    <detaild-bottom-bar  @addToCart="addToCart"></detaild-bottom-bar>
   </div>
 </template>
 
 <script>
+  import BackTop from "../../components/content/backTop/BackTop";
   import GoodsList from "components/content/goods/GoodsList";
   import DetaildBottomBar from "./childComps/DetaildBottomBar";
   import DetailNavBar from "./childComps/DetailNavBar";
@@ -35,6 +42,7 @@
   export default {
     name: "Detail",
     components: {
+      BackTop,
       GoodsList,
       DetaildBottomBar,
       DetailCommentInfo,
@@ -59,7 +67,8 @@
         recommends: [],
         themeTopYs: [],
         getThemeTopY: null,
-        currentIndex: 0
+        currentIndex: 0,
+        showBackTop: false
       }
     },
 
@@ -80,7 +89,7 @@
         this.themeTopYs.push(this.$refs.params.$el.offsetTop)
         this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
         this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
-
+        this.themeTopYs.push(Number.MAX_VALUE)
         console.log(this.themeTopYs)
       })
     },
@@ -89,38 +98,11 @@
       showGoods() {
         return this.goods[this.currentType].list
       },
-
     },
 
     mounted() {
-      //
-      this.themeTopYs.push(0)
-      this.themeTopYs.push(this.$refs.params.$el.offsetTop)
-      this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
-      this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
 
-      console.log(this.themeTopYs)
     },
-
-    // mounted() {
-    //   let newRefresh=debounce(this.$refs.scroll.refresh, 50)
-    //
-    //   this.itemImgListener=()=>{
-    //     newRefresh()
-    //   }
-    //   this.$bus.$on('itemImageLoad', this.itemImgListener)
-    // },
-
-    //什么时候给数组themeTopYs的元素赋值？渲染
-    // updated(){
-    //   this.themeTopYs=[]
-    //   this.themeTopYs.push(0)
-    //   this.themeTopYs.push(this.$refs.params.$el.offsetTop)
-    //   this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
-    //   this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
-    //
-    //   console.log(this.themeTopYs)
-    // },
 
     destroyed() {
       // console.log('destroyed')
@@ -132,8 +114,7 @@
       getDetail() {
         getDetail(this.detailId).then(res => {
           const data = res.result;
-          // console.log(data);
-          // console.log(res)
+          // console.log(data)
 
           // 获取轮播图数据
           this.topImages = data.itemInfo.topImages;
@@ -168,7 +149,6 @@
             this.themeTopYs.push(this.$refs.params.$el.offsetTop)
             this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
             this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
-
             console.log(this.themeTopYs)
           })
         })
@@ -185,34 +165,57 @@
       //4.监听详情页图片加载完
       detailImageLoad() {
         this.newRefresh()
-
-        this.themeTopYs = []
-        this.themeTopYs.push(0)
-        this.themeTopYs.push(this.$refs.params.$el.offsetTop)
-        this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
-        this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
-
-        console.log(this.themeTopYs)
+        this.getThemeTopY()
       },
 
       titleClick(index) {
-        console.log(this.themeTopYs[index])
+        // console.log(this.themeTopYs[index])
         this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100)
       },
 
-      contentScroll(position) {
-        //1.获取y值
-        const positionY = -position.y
+      backTop() {
+        this.$refs.scroll.scrollTo(0, 0, 300);
+      },
 
-        //2.positionY和主题中值进行对比
-        //let i in this.themeTopYs为字符
-        for (let i = 0; i < this.themeTopYs.length; i++) {
-          if ((i < length - 1 && (positionY > this.themeTopYs[i] && positionY < this.themeTopYs[i + 1])) ||
-            (i === length - 1 && positionY > this.themeTopYs[i])) {
-            this.currentIndex = i;
-            this.$refs.nav.currentIndex = this.currentIndex
+      contentScroll(position) {
+        let length = this.themeTopYs.length;
+        for (let i = 0; i < length; i++) {
+          let iPos = this.themeTopYs[i];
+          /**
+           * 判断的方案:
+           *  方案一:
+           *    条件: (i < (length-1) && currentPos >= iPos && currentPos < this.themeTops[i+1]) || (i === (length-1) && currentPos >= iPos),
+           *    优点: 不需要引入其他的内容, 通过逻辑解决
+           *    缺点: 判断条件过长, 并且不容易理解
+           *  方案二:
+           *    条件: 给themeTops最后添加一个很大的值, 用于和最后一个主题的top进行比较.
+           *    优点: 简洁明了, 便于理解
+           *    缺点: 需要引入一个较大的int数字
+           * 疑惑: 在第一个判断中, 为什么不能直接判断(currentPos >= iPos)即可?
+           * 解答: 比如在某一个currentPos大于第0个时, 就会break, 不会判断后面的i了.
+           */
+          if (position >= iPos && position < this.themeTopYs[i+1]) {
+            if (this.currentIndex !== i) {
+              this.currentIndex = i;
+            }
+            break;
           }
         }
+        this.showBackTop = (-position.y) > 1000
+      },
+
+      addToCart(){
+         // console.log('-----')
+        // 1.获取购物车需要的信息
+        const obj = {}
+        // 2.对象信息
+        obj.iid = this.iid;
+        obj.imgURL = this.topImages[0]
+        obj.title = this.goods.title
+        obj.desc = this.goods.desc;
+        obj.newPrice = this.goods.nowPrice;
+        // 3.添加到Store中
+        // this.$store.commit('addCart', obj)
       }
     }
   }
@@ -220,4 +223,22 @@
 </script>
 
 <style scoped>
+  #detail {
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+  }
+
+  .content {
+    position: absolute;
+    top: 44px;
+    bottom: 60px;
+  }
+
+  .back-top {
+    position: fixed;
+    right: 10px;
+    bottom: 65px;
+  }
 </style>
