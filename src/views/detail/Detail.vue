@@ -8,6 +8,7 @@
 <!--          {{item}}-->
 <!--        </li>-->
 <!--      </ul>-->
+<!--      <div>{{$store.state}}</div>-->
       <detail-swiper :top-images="topImages"></detail-swiper>
       <detail-base-info :goods="goods" ></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
@@ -15,6 +16,7 @@
       <details-params-info ref="params"  :params-info="paramsInfo"  ></details-params-info>
       <detail-comment-info ref="comment"    :comment-info="commentInfo"></detail-comment-info>
       <goods-list ref="recommend"  :goods="recommends"></goods-list>
+
     </scroll>
 
     <back-top @backTop="backTop" class="back-top" v-show="showBackTop">
@@ -22,10 +24,12 @@
     </back-top>
 
     <detaild-bottom-bar  @addToCart="addToCart"></detaild-bottom-bar>
+    <Toast :message="message" :Show="Show"></Toast>
   </div>
 </template>
 
 <script>
+  import Toast from "../../components/common/toast/Toast";
   import BackTop from "../../components/content/backTop/BackTop";
   import GoodsList from "components/content/goods/GoodsList";
   import DetaildBottomBar from "./childComps/DetaildBottomBar";
@@ -47,6 +51,7 @@
   export default {
     name: "Detail",
     components: {
+      Toast,
       BackTop,
       GoodsList,
       DetaildBottomBar,
@@ -73,7 +78,9 @@
         themeTopYs: [],
         getThemeTopY: null,
         currentIndex: 0,
-        showBackTop: false
+        showBackTop: false,
+        message: '',
+        Show: null
       }
     },
 
@@ -81,8 +88,9 @@
 
     created() {
       // 获取页面传过来的id
-      this.detailId = this.$route.params.iid;
+      // this.detailId = this.$route.params.iid;
 
+      this.iid = this.$route.params.iid;
       // 发送网络请求
       this.getDetail();
       this.getRecommend();
@@ -117,34 +125,28 @@
     methods: {
       // 请求详情数据
       getDetail() {
-        getDetail(this.detailId).then(res => {
+        getDetail(this.iid).then(res => {
           const data = res.result;
           // console.log(data)
 
           // 获取轮播图数据
           this.topImages = data.itemInfo.topImages;
-          // console.log( this.topImages)
 
           // 获取商品数据,调用封装的ES6的class
           this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.services);
-          // console.log( this.goods)
 
           // 获取店铺数据
           this.shop = new Shop(data.shopInfo);
-          // console.log( this.shop)
 
           // 获取下面的图片展示数据
           this.imagesInfo = data.detailInfo;
-          console.log(this.imagesInfo)
 
           // 获取尺寸数据
           this.paramsInfo = new GoodsParams(data.itemParams.info, data.itemParams.rule || {});
-          console.log(this.paramsInfo)
 
           // 获取评论数据
           if (data.rate.cRate !== 0) {
             this.commentInfo = data.rate.list[0] || {};
-            // console.log(this.commentInfo)
           }
 
           //该函数保证渲染完毕再回调，虽然DOM已经渲染出来，但是图片等网络数据还未加载完
@@ -209,20 +211,35 @@
         this.showBackTop = (-position.y) > 1000
       },
 
+
+      //点击加入到购物车将商品加入到购物车
       addToCart(){
          // console.log('-----')
         // 1.获取购物车需要的信息
-        const obj = {}
+        const product = {}
         // 2.对象信息
-        obj.iid = this.iid;
-        obj.imgURL = this.topImages[0]
-        obj.title = this.goods.title
-        obj.desc = this.goods.desc;
-        obj.newPrice = this.goods.nowPrice;
+        product.iid = this.iid;
+        product.imgURL = this.topImages[0]
+        product.title = this.goods.title
+        product.desc = this.goods.desc;
+        product.newPrice = this.goods.realPrice;
         // 3.添加到Store中
-        this.$store.commit('addCart', obj)
-        // this.$store.dispatch('addCart', obj)
-        console.log(obj)
+        //this.$store.commit()触发--->mutations
+        //this.$store.dispatch()触发--->actions
+        // this.$store.dispatch('addCart', product)
+        this.$store.commit('addCart', product)
+        // console.log(product)
+
+
+        // console.log(this.$store)
+        // this.$store.mutations.addCart(product).then(res => {
+        //   this.message=this.res
+        //   this.Show=true
+        //   setTimeout(()=>{
+        //     this.Show=false
+        //   },1500)
+        // })
+
       }
     }
   }

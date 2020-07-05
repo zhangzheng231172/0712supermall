@@ -11,7 +11,6 @@
   import CartList from './childComps/CartList'
   import BottomBar from './childComps/BottomBar'
 
-
   export default {
     name: "Cart",
     components: {
@@ -21,11 +20,10 @@
     },
     computed: {
       cartList() {
-        console.log(this.$store)
+        console.log(this.$store.getters)
         return this.$store.getters.cartList
       },
       cartCount() {
-        console.log(this.$store)
         return this.$store.getters.cartCount
       }
     }

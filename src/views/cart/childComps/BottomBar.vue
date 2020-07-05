@@ -1,6 +1,6 @@
 <template>
   <div class="bottom-menu">
-    <CheckButton class="select-all" @checkBtnClick="checkBtnClick" v-model="isSelectAll"></CheckButton>
+    <CheckButton class="select-all" @checkBtnClick="checkBtnClick" :value="isSelectAll"></CheckButton>
     <span>全选</span>
     <span class="total-price">合计: ¥{{totalPrice}}</span>
     <span class="buy-product">去计算({{$store.getters.cartCount}})</span>
@@ -23,8 +23,11 @@
         }).reduce((preValue, item) => {
           return preValue + item.count * item.newPrice
         }, 0).toFixed(2)
+        // reduce()方法对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。
+        // toFixed() 方法可把Number 四舍五入为指定小数位数的数字。
       },
       isSelectAll: function () {
+        //找到一个未选中，返回false；全部选中，则返回true
         return this.$store.getters.cartList.find(item => item.checked === false) === undefined;
       }
     },

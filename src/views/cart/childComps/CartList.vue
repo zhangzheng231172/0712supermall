@@ -1,6 +1,8 @@
 <template>
   <scroll>
     <div>
+<!--      <div> {{$store.state.cartList}}</div>-->
+<!--      <div> {{$store.getters.cartCount}}</div>-->
       <cart-list-item v-for="item in cartList" :key="item.iid" :item-info="item"></cart-list-item>
     </div>
   </scroll>
@@ -22,7 +24,7 @@
           return []
         }
       }
-    }
+    },
   }
 </script>
 
