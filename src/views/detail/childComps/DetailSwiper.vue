@@ -1,7 +1,7 @@
 <template>
   <div>
     <swiper class="detail-swiper">
-      <swiper-item   v-for="item in topImages" :key="item">
+      <swiper-item class="item"  v-for="item in topImages" :key="item">
         <img :src="item" alt="">
       </swiper-item>
     </swiper>
@@ -28,8 +28,10 @@
 
 <style scoped>
   .detail-swiper {
+    text-align: center;
     height:300px;
      width: 320px;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    /*z-index: -1;*/
    }
 </style>

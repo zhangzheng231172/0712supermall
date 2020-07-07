@@ -118,7 +118,6 @@
       this.getHomeGoods('pop')
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
-
     },
 
     mixins:[itemListennerMixin],
@@ -129,6 +128,7 @@
       // 刷新频繁的防抖函数处理
       //根据tabClick函数传入的参数进行判断，变更currentType的值，默认为pop
       tabClick(index) {
+        console.log(132, index)
         switch (index) {
           case 0:
             this.currentType = 'pop'
@@ -141,6 +141,7 @@
             break
         }
         //使refs=tabControl1和tabControl2的组件的当前下标为index
+        console.log(145, this.$refs.tabControl1.currentIndex )
         this.$refs.tabControl1.currentIndex = index;
         this.$refs.tabControl2.currentIndex = index;
       },
@@ -199,7 +200,6 @@
           this.$refs.scroll.finishPullUp()
         })
       }
-
     }
   }
 

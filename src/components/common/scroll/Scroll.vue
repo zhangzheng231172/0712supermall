@@ -21,12 +21,12 @@
         type: Number,
         default: 0
       },
-
       pullUpLoad: {
         type: Boolean,
         default: false
       }
     },
+
     data() {
       return {
         scroll: null,
@@ -66,7 +66,7 @@
     },
 
     methods: {
-      scrollTo(x, y, time = 300) {
+      scrollTo(x, y, time) {
         //加载先后导致scroll还未加载就已经调用
         // this.scroll&&this.scroll.scrollTo&&this.scroll.scrollTo(x, y, time)
         this.scroll.scrollTo(x, y, time)

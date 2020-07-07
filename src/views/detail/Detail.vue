@@ -3,12 +3,6 @@
     <detail-nav-bar class="detail-nav" @titleClick="titleClick" ref="nav"></detail-nav-bar>
 
     <scroll class="content" ref="scroll" :probeType="3" @scroll="contentScroll">
-<!--      <ul>-->
-<!--        <li v-for="item in $store.state.cartList" :key="item.index">-->
-<!--          {{item}}-->
-<!--        </li>-->
-<!--      </ul>-->
-<!--      <div>{{$store.state}}</div>-->
       <detail-swiper :top-images="topImages"></detail-swiper>
       <detail-base-info :goods="goods" ></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
@@ -16,7 +10,6 @@
       <details-params-info ref="params"  :params-info="paramsInfo"  ></details-params-info>
       <detail-comment-info ref="comment"    :comment-info="commentInfo"></detail-comment-info>
       <goods-list ref="recommend"  :goods="recommends"></goods-list>
-
     </scroll>
 
     <back-top @backTop="backTop" class="back-top" v-show="showBackTop">
@@ -80,7 +73,7 @@
         currentIndex: 0,
         showBackTop: false,
         message: '',
-        Show: null
+        Show: false
       }
     },
 
@@ -89,17 +82,17 @@
     created() {
       // 获取页面传过来的id
       // this.detailId = this.$route.params.iid;
-
       this.iid = this.$route.params.iid;
       // 发送网络请求
       this.getDetail();
       this.getRecommend();
 
-      //给初始值，避免多次赋值
+      //给初始值，避免多次赋值,offSetTop为正值
       this.getThemeTopY = debounce(() => {
         this.themeTopYs = []
         this.themeTopYs.push(0)
         this.themeTopYs.push(this.$refs.params.$el.offsetTop)
+        console.log(this.$refs.params.$el.offsetTop)
         this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
         this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
         this.themeTopYs.push(Number.MAX_VALUE)
@@ -113,9 +106,6 @@
       },
     },
 
-    mounted() {
-
-    },
 
     destroyed() {
       // console.log('destroyed')
@@ -169,12 +159,15 @@
         });
       },
 
+
       //4.监听详情页图片加载完
       detailImageLoad() {
         this.newRefresh()
         this.getThemeTopY()
+
       },
 
+      //5.点击标题滚轮滚到index对应下的-this.themeTopYs[index]位置处
       titleClick(index) {
         // console.log(this.themeTopYs[index])
         this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100)
@@ -185,32 +178,25 @@
       },
 
       contentScroll(position) {
+        this.showBackTop = (-position.y) > 1000
         let length = this.themeTopYs.length;
         for (let i = 0; i < length; i++) {
           let iPos = this.themeTopYs[i];
-          /**
-           * 判断的方案:
-           *  方案一:
-           *    条件: (i < (length-1) && currentPos >= iPos && currentPos < this.themeTops[i+1]) || (i === (length-1) && currentPos >= iPos),
-           *    优点: 不需要引入其他的内容, 通过逻辑解决
-           *    缺点: 判断条件过长, 并且不容易理解
-           *  方案二:
-           *    条件: 给themeTops最后添加一个很大的值, 用于和最后一个主题的top进行比较.
-           *    优点: 简洁明了, 便于理解
-           *    缺点: 需要引入一个较大的int数字
-           * 疑惑: 在第一个判断中, 为什么不能直接判断(currentPos >= iPos)即可?
-           * 解答: 比如在某一个currentPos大于第0个时, 就会break, 不会判断后面的i了.
-           */
-          if (position >= iPos && position < this.themeTopYs[i+1]) {
+           // *  方案二:
+           // *    条件: 给themeTops最后添加一个很大的值, 用于和最后一个主题的top进行比较.
+           // *    优点: 简洁明了, 便于理解
+           // *    缺点: 需要引入一个较大的int数字
+           // * 疑惑: 在第一个判断中, 为什么不能直接判断(currentPos >= iPos)即可?
+           // * 解答: 比如在某一个currentPos大于第0个时, 就会break, 不会判断后面的i了
+          if ((-position.y) >= iPos && (-position.y) < this.themeTopYs[i+1]) {
             if (this.currentIndex !== i) {
               this.currentIndex = i;
+              this.$refs.nav.currentIndex = this.currentIndex
             }
             break;
           }
         }
-        this.showBackTop = (-position.y) > 1000
       },
-
 
       //点击加入到购物车将商品加入到购物车
       addToCart(){
@@ -233,11 +219,11 @@
 
         // console.log(this.$store)
         // this.$store.mutations.addCart(product).then(res => {
-        //   this.message=this.res
-        //   this.Show=true
-        //   setTimeout(()=>{
-        //     this.Show=false
-        //   },1500)
+          this.message=this.res
+          this.Show=true
+          setTimeout(()=>{
+            this.Show=false
+          },1500)
         // })
 
       }
@@ -251,7 +237,7 @@
     height: 100vh;
     position: relative;
     z-index: 1;
-    background-color: #fff;
+    background-color: white;
   }
 
   .content {

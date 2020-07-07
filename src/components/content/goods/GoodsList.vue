@@ -14,7 +14,6 @@
     components: {
       GoodsListItem
     },
-
     props: {
       goods: {
         type: Array,
