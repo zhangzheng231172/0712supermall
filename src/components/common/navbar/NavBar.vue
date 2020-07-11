@@ -28,12 +28,12 @@
   }
 
   .center {
-    flex: 1;
-  }
+       flex: 1;
+     }
 
   .nav-bar {
     position: relative;
-    z-index: 10;
+    z-index: 5;
 
     display: flex;
 
@@ -45,15 +45,15 @@
     /*box-shadow: 0 1px 1px rgba(100,100,100,.08);*/
   }
 
-  .nav-left {
-    width: 60px;
-  }
+  /*.nav-left {*/
+  /*  width: 60px;*/
+  /*}*/
 
-  .nav-center {
-    flex: 1;
-  }
+  /*.nav-center {*/
+  /*  flex: 1;*/
+  /*}*/
 
-  .nav-right {
-    width: 60px;
-  }
+  /*.nav-right {*/
+  /*  width: 60px;*/
+  /*}*/
 </style>

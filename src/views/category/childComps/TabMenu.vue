@@ -45,12 +45,14 @@
 <style scoped>
   #tab-menu {
     position: absolute;
-    background-color: #f6f6f6;
-    /*height: 100%;*/
+    float: left;
     top: 44px;
-    bottom: 60px;
+    bottom: 49px;
     width: 100px;
     box-sizing: border-box;
+    background-color: #f6f6f6;
+    /*height: 100%;*/
+    overflow: scroll;
   }
 
   .menu-list-item {
@@ -61,9 +63,9 @@
   }
 
   .menu-list-item.active {
+    border-left: 3px solid var(--color-high-text);
+    background-color: #fff;
     font-weight: 700;
     color: var(--color-high-text);
-    background-color: #fff;
-    border-left: 3px solid var(--color-high-text);
   }
 </style>

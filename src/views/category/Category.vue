@@ -3,12 +3,15 @@
     <nav-bar class="home-nav" >
       <div slot="center">商品分类</div>
     </nav-bar>
-    <tab-menu :category="category" @itemClick="itemClick(index)"></tab-menu>
+    <tab-menu    :category="category" @itemClick="itemClick"></tab-menu>
 <!--    <scroll>-->
+    <div class="content">
       <tab-content-category :subcategory="showSubcategory"></tab-content-category>
-      <tab-control :titles="['综合', '新品', '销量']"
-                   @itemClick="tabClick"></tab-control>
+      <tab-control class="tab-control"
+                   :titles="['综合', '新品', '销量']"
+                   @tabClick="tabClick"></tab-control>
       <tab-content-detail :category-detail="showCategoryDetail"></tab-content-detail>
+    </div>
 <!--    </scroll>-->
   </div>
 </template>
@@ -57,7 +60,7 @@
       },
       showCategoryDetail() {
         if (this.currentIndex === -1) return []
-        console.log(this.categoryData[this.currentIndex].categoryDetail[this.currentType])
+        // console.log(this.categoryData[this.currentIndex].categoryDetail[this.currentType])
         return this.categoryData[this.currentIndex].categoryDetail[this.currentType]
       }
     },
@@ -148,34 +151,25 @@
   }
 
   .home-nav {
-    background-color: rgb(255, 129, 152);
-    color: white;
-
     position: fixed;
     left: 0px;
     right: 0px;
     top: 0px;
     z-index: 9;
-  }
 
+    background-color: rgb(255, 129, 152);
+    color: white;
+  }
 
   .content {
-    /*height: calc(100%- 93px);*/
-    overflow: hidden;
-    /*margin-top: 44px;*/
-
+    /*1.定位*/
     position: absolute;
+    left: 100px;
     top: 44px;
     bottom: 49px;
-    left: 0;
-    right: 0;
+    width: calc(100vw - 100px);
+    height: calc(100% - 93px);
+    overflow: scroll;
   }
-
-  .tab-control {
-    position: relative;
-    z-index: 9;
-    top: 0;
-  }
-
 
 </style>

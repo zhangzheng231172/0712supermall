@@ -15,7 +15,6 @@
 <script>
   export default {
     name: "GoodsListItem",
-
     props: {
       goodsItem: {
         type: Object,
@@ -28,8 +27,22 @@
     computed:{
       // 根据图片数据不同的来源和索引动态显示图片
       showImage() {
-        // console.log(this.goodsItem)
-         return this.goodsItem.image || this.goodsItem.show.img
+        console.log(this.goodsItem)
+        // let imgSrc;
+        // if(this.goodsItem.image){
+        //   imgSrc=this.goodsItem.image
+        //   console.log(imgSrc)
+        // }
+        // else if(this.goodsItem.show.img){
+        //   imgSrc=this.goodsItem.show.img
+        //   console.log(imgSrc)
+        // }
+        // else{
+        //   imgSrc=this.goodsItem.img
+        //   console.log(imgSrc)
+        // }
+        // return imgSrc
+         return this.goodsItem.img || this.goodsItem.image || this.goodsItem.show.img
       }
     },
 
@@ -50,37 +63,39 @@
 
 <style scoped>
   .goods-item {
-    padding-bottom: 40px;
     position: relative;
     width: 48%;
+    padding-bottom: 40px;
+
   }
 
   .goods-item img {
     width: 100%;
-    border-radius: 5px;
     border: 3px solid var(--color-tint);
+    border-radius: 5px;
   }
 
   .goods-info {
-    font-size: 12px;
     position: absolute;
+    overflow: hidden;
     bottom: 5px;
     left: 0;
     right: 0;
-    overflow: hidden;
+
+    font-size: 12px;
     text-align: center;
   }
 
   .goods-info p {
     overflow: hidden;
+    margin-bottom: 3px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 3px;
   }
 
   .goods-info .price {
-    color: var(--color-high-text);
     margin-right: 20px;
+    color: var(--color-high-text);
   }
 
   .goods-info .collect {
