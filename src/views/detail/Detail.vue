@@ -219,7 +219,7 @@
 
         // console.log(this.$store)
         // this.$store.mutations.addCart(product).then(res => {
-          this.message=this.res
+          this.message='添加到购物车中'
           this.Show=true
           setTimeout(()=>{
             this.Show=false

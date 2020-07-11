@@ -1,167 +1,181 @@
 <template>
-  <div class="wrapper">
-<!--    <div class="content">-->
-<!--      <button @click="btnClick">按钮</button>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--      <h2>购物车</h2>-->
-<!--    </div>-->
+  <div>
+    <nav-bar class="home-nav" >
+      <div slot="center">商品分类</div>
+    </nav-bar>
+    <tab-menu :category="category" @itemClick="itemClick(index)"></tab-menu>
+<!--    <scroll>-->
+      <tab-content-category :subcategory="showSubcategory"></tab-content-category>
+      <tab-control :titles="['综合', '新品', '销量']"
+                   @itemClick="tabClick"></tab-control>
+      <tab-content-detail :category-detail="showCategoryDetail"></tab-content-detail>
+<!--    </scroll>-->
   </div>
-
-
 </template>
 
 <script>
-  import BScroll from 'better-scroll'
+  import TabContentDetail from "./childComps/TabContentDetail";
+  import TabControl from "../../components/content/tabControl/TabControl";
+  import TabContentCategory from "./childComps/TabContentCategory";
+  import {getCategory, getSubcategory, getCategoryDetail} from "../../network/category";
+  // import Scroll from "components/common/scroll/Scroll";
+  import {POP, SELL, NEW} from "@/common/const";
+  import NavBar from "../../components/common/navbar/NavBar";
+  import TabMenu from "./childComps/TabMenu";
 
   export default {
     name: "Category",
+    components: {
+      // Scroll,
+      TabContentDetail,
+      TabControl,
+      NavBar,
+      TabMenu,
+      TabContentCategory
+    },
     data() {
       return {
-        scroll: null
+        scroll: null,
+        category: [],
+        categoryData:[],
+        maitKey: 0,
+        currentIndex: -1,
+        miniWallkey: 0,
+        currentType: 'pop'
       }
     },
 
-    mounted() {
-      this.scroll = new BScroll(document.querySelector('.wrapper'), {
-          prototype: 2,
-          click: true,
-          pullUpLoad: true
-        }
-      )
-      this.scroll.on('scroll', (position) => {
-        console.log(position)
-      })
-
-      this.scroll.on('pullingUp', () => {
-        console.log('上拉加载更多');
-
-        //控制多次响应
-        setTimeout(() => {
-          this.scroll.finishPullUp()
-        })
-      }, 2000)
+    created(){
+      this.getCategory()
     },
+
+    computed: {
+      showSubcategory() {
+        if (this.currentIndex === -1) return {}
+        // console.log(this.categoryData[this.currentIndex].subcategories)
+        return this.categoryData[this.currentIndex].subcategories
+      },
+      showCategoryDetail() {
+        if (this.currentIndex === -1) return []
+        console.log(this.categoryData[this.currentIndex].categoryDetail[this.currentType])
+        return this.categoryData[this.currentIndex].categoryDetail[this.currentType]
+      }
+    },
+
 
     methods: {
-      btnClick() {
-        console.log('btnClick')
+      // 1.请求该页面所需的整个数据对象
+      getCategory() {
+        // 1.获取分类数据
+        getCategory().then(res => {
+          // console.log(res)
+          this.category = res.data.category.list
+          // 2.初始化每个类别的子数据
+          for (let i = 0; i < this.category.length; i++) {
+            this.categoryData[i] = {
+              subcategories: {},
+              categoryDetail: {
+                'pop': [],
+                'new': [],
+                'sell': []
+              }
+            }
+            this.currentIndex = i;
+            this.maitKey = this.category[i].maitKey;
+            this.miniWallkey = this.category[i].miniWallkey
+          }
+          // 3.请求第一个分类的数据
+          this.getSubcategory(0)
+        })
+      },
+
+      // 2.请求该页面所需的整个数据对象数组的每个元素对象Subcategory
+      getSubcategory(index) {
+        this.currentIndex = index
+        const maitKey = this.category[index].maitKey
+        getSubcategory(maitKey).then(res => {
+          // console.log(res)
+          this.categoryData[index].subcategories = res.data
+          console.log(this.categoryData[index].subcategories)
+          this.categoryData = {...this.categoryData}
+
+          // console.log(this.categoryData[this.currentIndex].subcategories)
+          this.getCategoryDetail('pop')
+          this.getCategoryDetail('new')
+          this.getCategoryDetail('sell')
+        })
+      },
+
+      getCategoryDetail(type) {
+        // 1.获取请求的miniWallkey
+        const miniWallkey = this.miniWallkey
+        // 2.发送请求,传入miniWallkey和type
+        getCategoryDetail(miniWallkey, type).then(res => {
+          // console.log(res)
+          // 3.将获取的数据保存下来
+          this.categoryData[this.currentIndex].categoryDetail[type] = res
+          this.categoryData = {...this.categoryData}
+        })
+      },
+
+      itemClick(index) {
+        this.getSubcategory(index)
+      },
+
+      tabClick(index) {
+        switch (index) {
+          case 0:
+            this.currentType = 'pop'
+            break
+          case 1:
+            this.currentType = 'new'
+            break
+          case 2:
+            this.currentType = 'sell'
+            break
+        }
       }
+
     }
-
-
   }
 </script>
 
 <style scoped>
-  .wrapper {
-    height: 150px;
-    background-color: red;
-    /*overflow: scroll;*/
+  #home {
+    padding-top: 44px;
+    /*vh-viewpoint height，视口高度*/
+    height: 100vh;
   }
+
+  .home-nav {
+    background-color: rgb(255, 129, 152);
+    color: white;
+
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    z-index: 9;
+  }
+
+
+  .content {
+    /*height: calc(100%- 93px);*/
+    overflow: hidden;
+    /*margin-top: 44px;*/
+
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
+    left: 0;
+    right: 0;
+  }
+
+  .tab-control {
+    position: relative;
+    z-index: 9;
+    top: 0;
+  }
+
+
 </style>

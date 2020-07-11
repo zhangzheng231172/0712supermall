@@ -47,7 +47,7 @@
     font-weight: normal;
     /*position: sticky;*/
     -webkit-tap-highlight-color: rgba(0,0,0,0);
-    z-index: 1000;
+    z-index: 100;
   }
 
   .title {
