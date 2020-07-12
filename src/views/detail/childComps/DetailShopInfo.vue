@@ -73,8 +73,9 @@
   }
 
   .shop-top {
-    line-height: 45px;
     display: flex;
+
+    line-height: 45px;
     align-items: center;
   }
 
@@ -92,8 +93,9 @@
 
   .shop-middle {
     display: flex;
-    align-items: center;
     margin-top: 15px;
+
+    align-items: center;
   }
 
   .shop-middle-item {
@@ -102,10 +104,11 @@
 
   .shop-middle-left {
     display: flex;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+
     justify-content: space-evenly;
     text-align: center;
     color: #333333;
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .sells-count,
@@ -115,8 +118,8 @@
 
   .sells-text,
   .goods-text {
-    font-size: 12px;
     margin-top: 10px;
+    font-size: 12px;
   }
 
   .shop-middle-right {
@@ -143,9 +146,9 @@
 
   .shop-middle-right .better span {
     padding: 3px;
+    background-color: #5ea732;
     text-align: center;
     color: #ffffff;
-    background-color: #5ea732;
   }
 
   .shop-middle-right .better-more span {
@@ -158,14 +161,15 @@
   }
 
   .enter-shop {
-    font-size: 14px;
-    line-height: 30px;
     display: inline-block;
     width: 150px;
     height: 30px;
-    text-align: center;
     border-radius: 10px;
     background-color: #f2f5f8;
+
+    font-size: 14px;
+    line-height: 30px;
+    text-align: center;
   }
 </style>
 

@@ -7,7 +7,6 @@
     </div>
 </template>
 
-
 <script>
     export default {
         name: "NavBar",
@@ -18,9 +17,10 @@
   .nav-bar {
     display: flex;
     height: 44px;
+    /*设置盒子阴影及阴影颜色*/
+    box-shadow: 0px -1px 1px rgba(100,100,100,0.1);
     line-height: 44px;
     text-align: center;
-    box-shadow: 0px -3px 1px rgba(100,100,100,0.1);
   }
 
   .left, .right {
@@ -28,32 +28,8 @@
   }
 
   .center {
+    /*flex去除已使用的主轴长度，剩余长度与剩余数的比值*/
        flex: 1;
-     }
+   }
 
-  .nav-bar {
-    position: relative;
-    z-index: 5;
-
-    display: flex;
-
-    height: 44px;
-    line-height: 44px;
-    text-align: center;
-
-    /*border-bottom: 1px solid #eee;*/
-    /*box-shadow: 0 1px 1px rgba(100,100,100,.08);*/
-  }
-
-  /*.nav-left {*/
-  /*  width: 60px;*/
-  /*}*/
-
-  /*.nav-center {*/
-  /*  flex: 1;*/
-  /*}*/
-
-  /*.nav-right {*/
-  /*  width: 60px;*/
-  /*}*/
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar class="home-nav" >
+    <nav-bar class="category-nav" >
       <div slot="center">商品分类</div>
     </nav-bar>
     <tab-menu    :category="category" @itemClick="itemClick"></tab-menu>
@@ -145,12 +145,12 @@
 
 <style scoped>
   #home {
+    height: 100vh;
     padding-top: 44px;
     /*vh-viewpoint height，视口高度*/
-    height: 100vh;
   }
 
-  .home-nav {
+  .category-nav {
     position: fixed;
     left: 0px;
     right: 0px;
@@ -171,5 +171,4 @@
     height: calc(100% - 93px);
     overflow: scroll;
   }
-
 </style>

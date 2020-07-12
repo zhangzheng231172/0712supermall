@@ -36,11 +36,12 @@
 <style scoped>
   .icon-selector {
     position: relative;
-    margin: 0;
     width: 18px;
     height: 18px;
     border-radius: 50%;
     border: 2px solid #ccc;
+    margin: 0;
+    /*cursor CSS 属性设置光标的类型（如果有），在鼠标指针悬停在元素上时显示相应样式。*/
     cursor: pointer;
   }
 

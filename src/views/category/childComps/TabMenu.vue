@@ -9,7 +9,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -45,11 +44,11 @@
 <style scoped>
   #tab-menu {
     position: absolute;
-    float: left;
     top: 44px;
     bottom: 49px;
     width: 100px;
     box-sizing: border-box;
+    float: left;
     background-color: #f6f6f6;
     /*height: 100%;*/
     overflow: scroll;

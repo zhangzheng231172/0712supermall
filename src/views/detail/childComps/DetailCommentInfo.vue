@@ -57,24 +57,24 @@
 <style scoped>
   .comment-info {
     padding: 5px 12px;
-    color: #333333;
     border-bottom: 5px solid #f2f5f8;
+    color: #333333;
   }
 
   .info-header {
-    line-height: 50px;
     height: 50px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    line-height: 50px;
   }
 
   .header-title {
-    font-size: 15px;
     float: left;
+    font-size: 15px;
   }
 
   .header-more {
-    font-size: 13px;
     float: right;
+    font-size: 13px;
     margin-right: 10px;
   }
 
@@ -89,10 +89,10 @@
   }
 
   .info-user span {
-    font-size: 15px;
     position: relative;
     top: -15px;
     margin-left: 10px;
+    font-size: 15px;
   }
 
   .info-detail {
@@ -106,8 +106,8 @@
   }
 
   .info-detail .info-other {
-    font-size: 12px;
     margin-top: 10px;
+    font-size: 12px;
     color: #999999;
   }
 

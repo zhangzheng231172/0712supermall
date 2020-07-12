@@ -29,8 +29,7 @@
 </template>
 
 <script>
-
-  //文件路径引用问题：@
+  //文件路径引用问题：在vue.config.js配置文件中进行配置，
   import TabBar from 'components/common/tabbar/TabBar'
   import TabBarItem from 'components/common/tabbar/TabBarItem'
 

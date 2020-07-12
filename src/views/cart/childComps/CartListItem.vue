@@ -3,9 +3,11 @@
     <div class="item-selector">
       <CheckButton @checkBtnClick="checkedChange" :value="itemInfo.checked"></CheckButton>
     </div>
+
     <div class="item-img">
       <img :src="itemInfo.imgURL" alt="商品图片">
     </div>
+
     <div class="item-info">
       <div class="item-title">{{itemInfo.title}}</div>
       <div class="item-desc">商品描述: {{itemInfo.desc}}</div>
@@ -39,23 +41,19 @@
 <style scoped>
   #shop-item {
     width: 100%;
-    display: flex;
-    font-size: 0;
     padding: 5px;
     border-bottom: 1px solid #ccc;
+    display: flex;
+
+    font-size: 0;
   }
 
   .item-selector {
     width: 14%;
     display: flex;
+
     justify-content: center;
     align-items: center;
-  }
-
-  .item-title, .item-desc {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
   }
 
   .item-img {
@@ -78,18 +76,24 @@
     overflow: hidden;
   }
 
+  .item-title, .item-desc {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
   .item-info .item-desc {
+    margin-top: 15px;
     font-size: 14px;
     color: #666;
-    margin-top: 15px;
   }
 
   .info-bottom {
-    margin-top: 10px;
     position: absolute;
     bottom: 10px;
     left: 10px;
     right: 10px;
+    margin-top: 10px;
   }
 
   .info-bottom .item-price {

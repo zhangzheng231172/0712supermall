@@ -43,11 +43,11 @@
 
 <style scoped>
   .detail-nav {
+    z-index: 100;
     background-color: #fff;
     font-weight: normal;
-    /*position: sticky;*/
+    /*这个属性只用于iOS (iPhone和iPad)。当你点击一个链接或者通过Javascript定义的可点击元素的时候，它就会出现一个半透明的灰色背景。*/
     -webkit-tap-highlight-color: rgba(0,0,0,0);
-    z-index: 100;
   }
 
   .title {

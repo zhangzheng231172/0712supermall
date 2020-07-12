@@ -47,10 +47,11 @@
 <style scoped>
   .base-info {
     width: 100%;
-    margin-top: 15px;
     padding: 0 10px;
-    color: #999999;
     border-bottom: 5px solid #f2f5f8;
+    margin-top: 15px;
+
+    color: #999999;
   }
 
   .info-title {
@@ -68,34 +69,38 @@
   }
 
   .info-price .o-price {
-    font-size: 13px;
     margin-left: 5px;
+
     text-decoration: line-through;
+    font-size: 13px;
   }
 
   .info-price .discount {
-    font-size: 12px;
     position: relative;
     top: -4px;
-    margin-left: 5px;
     padding: 3px 6px;
+    margin-left: 5px;
+    background-color: #ff5777;
+
+    font-size: 12px;
     color: #ffffff;
     border-radius: 8px;
-    background-color: #ff5777;
   }
 
   .info-other {
+    display: flex;
+    border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+    margin-top: 15px;
+
     font-size: 13px;
     line-height: 30px;
-    display: flex;
     justify-content: space-between;
-    margin-top: 15px;
-    border-bottom: 1px solid rgba(100, 100, 100, 0.1);
   }
 
   .info-service {
-    line-height: 60px;
     display: flex;
+
+    line-height: 60px;
     justify-content: space-between;
   }
 
@@ -107,8 +112,9 @@
   }
 
   .info-service-item span {
-    font-size: 13px;
     margin-left: 5px;
+
+    font-size: 13px;
     color: #333333;
   }
 </style>

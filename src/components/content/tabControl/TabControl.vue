@@ -1,7 +1,7 @@
 <template>
   <!--  没有必要用插槽-->
   <div class="tab-control">
-    <!--         index为titles数组下标-->
+    <!-- index为titles数组下标-->
     <div class="tab-control-item"
          v-for="(item,index) in titles"
          :key="item.message"
@@ -10,7 +10,6 @@
       <span>{{item}}</span>
     </div>
   </div>
-
 </template>
 <!--父组件通过props传递titles数据子组件，-->
 <!--子组件监听tab-control-item的click事件，触发父组件的tabClick函数方法，其参数为index-->
@@ -26,6 +25,7 @@
         }
       }
     },
+
     data() {
       return {
         currentIndex: 0
@@ -44,21 +44,19 @@
 <style scoped>
   .tab-control {
     display: flex;
+    height: 40px;
+    background-color: #fff;
+
+    line-height: 40px;
     text-align: center;
     font-size: 15px;
-    height: 40px;
-    line-height: 40px;
-    background-color: #fff;
   }
 
   .tab-control {
     position: sticky;
     top: 44px;
-
   }
 
-
-  /*布局正确*/
   .tab-control-item {
     flex: 1;
   }
@@ -67,15 +65,16 @@
     padding: 5px;
   }
 
-  /*点击效果没做出来*/
+  /*激活某个选型才启用的样式*/
+  /*var(--color-high-text)读取变量--color-high-text*/
   .active {
     color: red;
-    /*color: var(--color-highlight-text);*/
+    color: var(--color-high-text);
   }
 
   .active span {
     border-bottom: 3px solid red;
-    /*border-bottom: 3px solid var(--color-tint);*/
+    border-bottom: 3px solid var(--color-tint);
   }
 
 </style>

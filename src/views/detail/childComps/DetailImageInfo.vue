@@ -55,6 +55,7 @@
     padding: 0 15px;
   }
 
+  /*直线看做是有宽度的矩形盒子，设置盒子背景颜色和宽度即可绘制直线*/
   .info-desc .start,
   .info-desc .end {
     position: relative;
@@ -63,14 +64,16 @@
     background-color: #a3a3a5;
   }
 
-  .info-desc .start {
-    float: left;
-  }
+  /*.info-desc .start {*/
+  /*  float: left;*/
+  /*}*/
 
+  /*浮动到盒子右侧*/
   .info-desc .end {
     float: right;
   }
 
+  /*绘制黑色小矩形*/
   .info-desc .start::before,
   .info-desc .end::after {
     position: absolute;
@@ -82,17 +85,17 @@
   }
 
   .info-desc .end::after {
-    right: 0;
-  }
+       right: 0;
+     }
 
   .info-desc .desc {
-    font-size: 14px;
     padding: 15px 0;
+    font-size: 14px;
   }
 
   .info-key {
-    font-size: 15px;
     margin: 10px 0 10px 15px;
+    font-size: 15px;
     color: #333333;
   }
 

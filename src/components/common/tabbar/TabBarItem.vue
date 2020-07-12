@@ -51,8 +51,8 @@
 <style scoped>
   .tab-bar-item {
     flex: 1;
-    text-align: center;
     height: 49px;
+    text-align: center;
     /*font-size: 14px;*/
   }
 
@@ -60,8 +60,9 @@
     height: 24px;
     width: 24px;
     margin-top: 3px;
-    vertical-align: middle;
     margin-bottom: 2px;
+    /*指定行内元素（inline）或表格单元格元素的垂直对齐方式。*/
+    vertical-align: middle;
   }
 
   .active {

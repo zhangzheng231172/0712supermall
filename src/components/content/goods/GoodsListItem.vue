@@ -4,7 +4,7 @@
     <img :src="showImage" alt="" @load="imageLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
-      <span claa="price">{{goodsItem.price}}</span>
+      <span class="price">{{goodsItem.price}}</span>
       <span class="collect">{{goodsItem.cfav}}</span>
     </div>
   </div>
@@ -66,7 +66,6 @@
     position: relative;
     width: 48%;
     padding-bottom: 40px;
-
   }
 
   .goods-item img {
@@ -82,13 +81,14 @@
     left: 0;
     right: 0;
 
-    font-size: 12px;
     text-align: center;
+    font-size: 12px;
   }
 
   .goods-info p {
     overflow: hidden;
     margin-bottom: 3px;
+    /*确定显示的溢出内容信号，显示一个省略号*/
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -102,13 +102,15 @@
     position: relative;
   }
 
+  /*::before 创建一个伪元素，其将成为匹配选中的元素的第一个子元素。常通过 content 属性来为一个元素添加修饰性的内容。*/
   .goods-info .collect::before {
-    content: '';
+    /*绝对定位基准为主元素*/
     position: absolute;
     left: -15px;
     top: -1px;
     width: 14px;
     height: 14px;
     background: url("~assets/img/common/collect.svg") 0 0/14px 14px;
+    content: '';
   }
 </style>

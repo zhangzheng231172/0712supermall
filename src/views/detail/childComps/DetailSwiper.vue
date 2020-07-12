@@ -28,9 +28,9 @@
 
 <style scoped>
   .detail-swiper {
-    text-align: center;
     height:300px;
-     width: 320px;
+    width: 320px;
+    text-align: center;
     /*overflow: hidden;*/
     /*z-index: -1;*/
    }

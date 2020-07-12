@@ -36,9 +36,10 @@
 
 <style scoped>
   .param-info {
-    font-size: 14px;
     padding: 20px 15px;
     border-bottom: 5px solid #f2f5f8;
+
+    font-size: 14px;
   }
 
   .param-info p {
@@ -48,6 +49,7 @@
 
   .param-info table {
     width: 100%;
+    /*border-collapse CSS 属性是用来决定表格的边框是分开的还是合并的。*/
     border-collapse: collapse;
   }
 
